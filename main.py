@@ -3,14 +3,15 @@ import sys
 
 from PyQt5.QtCore import QRect
 from PyQt5.QtWidgets import QApplication, QWidget
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 
+from UI import Ui_Form
 
-class App(QWidget):
+
+class App(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.circle)
         self.draw = False
 
@@ -24,7 +25,7 @@ class App(QWidget):
             qp.begin(self)
             d = random.randint(1, min(self.width(), self.height()))
             rect = QRect(random.randint(0, self.width() - d), random.randint(0, self.height() - d), d, d)
-            qp.setBrush(QColor('yellow'))
+            qp.setBrush(QColor(random.randint(0, 0xffffff)))
             qp.drawEllipse(rect)
             qp.end()
             self.draw = False
